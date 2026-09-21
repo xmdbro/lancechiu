@@ -57,6 +57,8 @@ a:focus-visible {
   height: 100dvh;
   overflow: hidden;
   background: var(--paper);
+  overscroll-behavior: none;
+  touch-action: pan-x;
 }
 
 .panel-track {
@@ -284,6 +286,30 @@ a:focus-visible {
   border-radius: 50%;
   background: currentColor;
   animation: pulse 2.1s ease-in-out infinite;
+}
+
+.portfolio-return-cue {
+  position: absolute;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(244, 242, 236, 0.34);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.return-cue-arrow {
+  position: relative;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-top: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  transform: translateY(0.12rem) rotate(45deg);
 }
 
 .sr-only {

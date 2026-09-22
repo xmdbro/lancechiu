@@ -317,6 +317,7 @@ a:focus-visible {
   overflow-y: auto;
   padding-inline: clamp(1.5rem, 5vw, 4rem);
   overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
   scrollbar-color: rgba(244, 242, 236, 0.28) transparent;
   scrollbar-width: thin;
 }
@@ -392,10 +393,6 @@ a:focus-visible {
   padding-block: clamp(4.5rem, 10vh, 7.5rem);
   border-bottom: 1px solid rgba(244, 242, 236, 0.24);
   scroll-margin-top: 2rem;
-}
-
-.portfolio-section:last-child {
-  margin-bottom: clamp(5rem, 12vh, 9rem);
 }
 
 .portfolio-section-heading {
@@ -559,6 +556,29 @@ a:focus-visible {
   outline-offset: 0.2rem;
 }
 
+.portfolio-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 1.5rem 0 max(1.5rem, env(safe-area-inset-bottom));
+  color: rgba(244, 242, 236, 0.48);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.portfolio-footer-link {
+  margin-left: auto;
+  color: inherit;
+  transition: color 180ms ease;
+}
+
+.portfolio-footer-link:hover {
+  color: var(--panel-ink);
+}
+
 .panel-scroll-cue {
   position: absolute;
   bottom: max(1.5rem, env(safe-area-inset-bottom));
@@ -669,6 +689,7 @@ a:focus-visible {
   .portfolio-project-disciplines {
     margin-top: 0.45rem;
   }
+
 }
 
 @media (max-width: 560px) {

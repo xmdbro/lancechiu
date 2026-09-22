@@ -38,6 +38,8 @@ function Timeline({ entries }: { entries: PortfolioTimelineEntry[] }) {
 }
 
 export function PortfolioSections() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <>
       <header className="portfolio-hero">
@@ -105,8 +107,19 @@ export function PortfolioSections() {
             ))}
           </ol>
         </section>
-
       </div>
+
+      <footer className="portfolio-footer">
+        <span className="portfolio-footer-copyright">
+          © {currentYear} Lance Chiu. All rights reserved.
+        </span>
+        <a
+          className="portfolio-footer-link"
+          href="mailto:hi@lancechiu.com"
+        >
+          hi@lancechiu.com
+        </a>
+      </footer>
     </>
   );
 }

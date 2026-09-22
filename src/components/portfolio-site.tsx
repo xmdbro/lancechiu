@@ -12,6 +12,7 @@ export function PortfolioSite() {
   const {
     backButtonRef,
     portfolioButtonRef,
+    portfolioScrollRef,
     returnPull,
     siteFrameRef,
     touchHandlers,
@@ -42,6 +43,7 @@ export function PortfolioSite() {
           returnPull={returnPull}
           reduceMotion={reduceMotion}
           backButtonRef={backButtonRef}
+          portfolioScrollRef={portfolioScrollRef}
           onClose={() => setPortfolioOpen(false)}
         />
       </motion.div>

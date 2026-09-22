@@ -222,11 +222,45 @@ a:focus-visible {
   background: var(--panel);
   box-shadow: 0 -1.5rem 4rem rgba(23, 23, 21, 0.16);
   color: var(--panel-ink);
-  padding: clamp(1.5rem, 5vw, 4rem);
+  padding: 0;
+}
+
+.portfolio-background {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  background: #080808;
+}
+
+.portfolio-background::after {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 45%, transparent 5%, rgba(8, 8, 8, 0.3) 82%),
+    linear-gradient(
+      90deg,
+      rgba(8, 8, 8, 0.8) 0%,
+      rgba(8, 8, 8, 0.48) 48%,
+      rgba(8, 8, 8, 0.24) 100%
+    );
+  content: "";
+  pointer-events: none;
+}
+
+.portfolio-background-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: blur(1.2px) brightness(0.68) saturate(0.82);
+  transform: scale(1.008);
+  transform-origin: center;
+  will-change: filter, transform;
 }
 
 .portfolio-panel::before {
   position: absolute;
+  z-index: 4;
   top: 0.75rem;
   left: 50%;
   width: 2.5rem;
@@ -239,7 +273,7 @@ a:focus-visible {
 
 .back-button {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   top: max(1.5rem, env(safe-area-inset-top));
   left: max(1.5rem, env(safe-area-inset-left));
   display: inline-flex;
@@ -275,8 +309,36 @@ a:focus-visible {
   transform: translateX(-0.2rem);
 }
 
+.portfolio-scroll {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-inline: clamp(1.5rem, 5vw, 4rem);
+  overscroll-behavior-y: contain;
+  scrollbar-color: rgba(244, 242, 236, 0.28) transparent;
+  scrollbar-width: thin;
+}
+
+.portfolio-scroll:focus-visible {
+  outline: 1px solid rgba(244, 242, 236, 0.55);
+  outline-offset: -5px;
+}
+
 .portfolio-content {
-  width: min(100%, 36rem);
+  width: min(100%, 76rem);
+  margin-inline: auto;
+}
+
+.portfolio-hero {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 38rem;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(5rem, 10vh, 8rem);
 }
 
 .portfolio-eyebrow {
@@ -288,21 +350,23 @@ a:focus-visible {
 }
 
 .portfolio-name {
-  font-size: clamp(2.6rem, 8vw, 6.5rem);
-  line-height: 0.9;
+  font-size: clamp(3rem, 7.5vw, 7rem);
+  line-height: 0.88;
 }
 
-.portfolio-subtitle {
-  margin: 0.9rem 0 0;
+.portfolio-introduction {
+  max-width: 29rem;
+  margin: 1.35rem 0 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  line-height: 1.45;
 }
 
 .portfolio-byline {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin: clamp(3rem, 9vh, 6rem) 0 0;
+  margin: clamp(2rem, 5vh, 3.5rem) 0 0;
   color: rgba(244, 242, 236, 0.55);
   font-size: 0.78rem;
   letter-spacing: 0.08em;
@@ -317,6 +381,184 @@ a:focus-visible {
   animation: pulse 2.1s ease-in-out infinite;
 }
 
+.portfolio-section-stack {
+  border-top: 1px solid rgba(244, 242, 236, 0.24);
+}
+
+.portfolio-section {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1.45fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  padding-block: clamp(4.5rem, 10vh, 7.5rem);
+  border-bottom: 1px solid rgba(244, 242, 236, 0.24);
+  scroll-margin-top: 2rem;
+}
+
+.portfolio-section:last-child {
+  margin-bottom: clamp(5rem, 12vh, 9rem);
+}
+
+.portfolio-section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.portfolio-section-heading span {
+  color: rgba(244, 242, 236, 0.42);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+}
+
+.portfolio-section-heading h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.portfolio-entry-list {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(244, 242, 236, 0.24);
+  list-style: none;
+}
+
+.portfolio-entry {
+  padding: clamp(1.25rem, 3vh, 2rem) 0;
+  border-bottom: 1px solid rgba(244, 242, 236, 0.24);
+}
+
+.portfolio-entry-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.portfolio-entry-heading h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.portfolio-entry-heading p,
+.portfolio-entry-heading > span {
+  color: rgba(244, 242, 236, 0.48);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.portfolio-entry-heading p {
+  margin: 0.65rem 0 0;
+}
+
+.portfolio-entry-heading > span {
+  flex: 0 0 auto;
+  padding-top: 0.2rem;
+}
+
+.portfolio-entry-description {
+  max-width: 36rem;
+  margin: 1rem 0 0;
+  color: rgba(244, 242, 236, 0.7);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.portfolio-project-list {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(244, 242, 236, 0.24);
+  list-style: none;
+}
+
+.portfolio-project {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: clamp(1rem, 2.5vh, 1.5rem) 0;
+  border-bottom: 1px solid rgba(244, 242, 236, 0.24);
+}
+
+.portfolio-project-index,
+.portfolio-project-meta,
+.portfolio-project-disciplines {
+  color: rgba(244, 242, 236, 0.48);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.portfolio-project-index {
+  padding-top: 0.3rem;
+}
+
+.portfolio-project-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.portfolio-project-title a {
+  text-decoration: underline;
+  text-decoration-color: rgba(244, 242, 236, 0.35);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.portfolio-project-description {
+  max-width: 32rem;
+  margin: 0.6rem 0 0;
+  color: rgba(244, 242, 236, 0.7);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.portfolio-project-disciplines {
+  margin: 0.65rem 0 0;
+}
+
+.portfolio-project-meta {
+  display: flex;
+  min-width: 7rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+  padding-top: 0.3rem;
+  text-align: right;
+}
+
+.portfolio-project-github {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  color: rgba(244, 242, 236, 0.68);
+  font-size: 1.1rem;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.portfolio-project-github:hover {
+  color: var(--panel-ink);
+  transform: translateY(-2px);
+}
+
+.portfolio-project-github:focus-visible {
+  border-radius: 999px;
+  outline: 1px solid currentColor;
+  outline-offset: 0.2rem;
+}
+
 .panel-scroll-cue {
   position: absolute;
   bottom: max(1.5rem, env(safe-area-inset-bottom));
@@ -328,8 +570,9 @@ a:focus-visible {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   transform: translateX(-50%);
+  transition: opacity 180ms ease;
   white-space: nowrap;
-  z-index: 1;
+  z-index: 3;
 }
 
 .panel-scroll-cue--intro {
@@ -338,6 +581,10 @@ a:focus-visible {
 
 .panel-scroll-cue--portfolio {
   color: rgba(244, 242, 236, 0.34);
+}
+
+.panel-scroll-cue--hidden {
+  opacity: 0;
 }
 
 .scroll-cue-arrow {
@@ -388,6 +635,40 @@ a:focus-visible {
     width: 24rem;
     opacity: 0.34;
   }
+
+  .portfolio-content {
+    width: min(100%, 34rem);
+  }
+
+  .portfolio-name {
+    font-size: clamp(2.7rem, 13vw, 4.25rem);
+  }
+
+  .portfolio-introduction {
+    margin-top: 0.9rem;
+  }
+
+  .portfolio-byline {
+    margin-top: 1.25rem;
+  }
+
+  .portfolio-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-block: clamp(3.5rem, 8vh, 5rem);
+  }
+
+  .portfolio-project {
+    padding-block: 0.85rem;
+  }
+
+  .portfolio-project-description {
+    margin-top: 0.4rem;
+  }
+
+  .portfolio-project-disciplines {
+    margin-top: 0.45rem;
+  }
 }
 
 @media (max-width: 560px) {
@@ -398,6 +679,33 @@ a:focus-visible {
   .portfolio-content {
     padding-inline: 0.5rem;
   }
+
+  .portfolio-hero {
+    padding-top: 6rem;
+  }
+
+  .portfolio-entry-heading {
+    gap: 1rem;
+  }
+
+  .portfolio-entry-heading > span {
+    max-width: 6.5rem;
+    text-align: right;
+  }
+
+  .portfolio-project {
+    grid-template-columns: 1.5rem minmax(0, 1fr) auto;
+    gap: 0.65rem;
+  }
+
+  .portfolio-project-meta {
+    min-width: 0;
+  }
+
+  .portfolio-project-year {
+    display: none;
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

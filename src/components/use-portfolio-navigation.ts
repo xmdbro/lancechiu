@@ -30,10 +30,12 @@ export function usePortfolioNavigation({
   const siteFrameRef = useRef<HTMLElement>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
   const portfolioButtonRef = useRef<HTMLButtonElement>(null);
+  const portfolioScrollRef = useRef<HTMLDivElement>(null);
   const hasOpenedPortfolio = useRef(false);
   const scrollIntent = useRef(0);
   const scrollResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStartY = useRef<number | null>(null);
+  const touchStartScrollTop = useRef(0);
 
   function resetScrollIntent() {
     scrollIntent.current = 0;
@@ -43,6 +45,7 @@ export function usePortfolioNavigation({
   useEffect(() => {
     if (portfolioOpen) {
       hasOpenedPortfolio.current = true;
+      portfolioScrollRef.current?.scrollTo({ top: 0, left: 0 });
       backButtonRef.current?.focus({ preventScroll: true });
       return;
     }
@@ -72,8 +75,6 @@ export function usePortfolioNavigation({
         return;
       }
 
-      event.preventDefault();
-
       const unit =
         event.deltaMode === WheelEvent.DOM_DELTA_LINE
           ? 16
@@ -87,6 +88,13 @@ export function usePortfolioNavigation({
           resetScrollIntent();
           return;
         }
+
+        if ((portfolioScrollRef.current?.scrollTop ?? 0) > 1) {
+          resetScrollIntent();
+          return;
+        }
+
+        event.preventDefault();
 
         scrollIntent.current = Math.min(
           RETURN_SCROLL_THRESHOLD,
@@ -105,6 +113,7 @@ export function usePortfolioNavigation({
           return;
         }
       } else {
+        event.preventDefault();
         setReturnPull(0);
 
         if (delta <= 0) {
@@ -151,6 +160,7 @@ export function usePortfolioNavigation({
 
   const handleTouchStart: TouchEventHandler<HTMLElement> = (event) => {
     touchStartY.current = event.touches[0]?.clientY ?? null;
+    touchStartScrollTop.current = portfolioScrollRef.current?.scrollTop ?? 0;
     resetScrollIntent();
   };
 
@@ -165,16 +175,23 @@ export function usePortfolioNavigation({
       return;
     }
 
-    const distance = portfolioOpen
-      ? currentY - touchStartY.current
-      : touchStartY.current - currentY;
-
-    if (distance <= 0) {
-      setReturnPull(0);
-      return;
-    }
-
     if (portfolioOpen) {
+      const scrollDistance = touchStartY.current - currentY;
+
+      if (scrollDistance >= 0 || touchStartScrollTop.current > 0) {
+        if (portfolioScrollRef.current) {
+          portfolioScrollRef.current.scrollTop = Math.max(
+            0,
+            touchStartScrollTop.current + scrollDistance,
+          );
+        }
+
+        setReturnPull(0);
+        return;
+      }
+
+      const distance = Math.abs(scrollDistance);
+
       if (!reduceMotion) {
         setReturnPull(Math.min(MAX_RETURN_PULL, distance * 0.35));
       }
@@ -185,6 +202,13 @@ export function usePortfolioNavigation({
         setPortfolioOpen(false);
       }
 
+      return;
+    }
+
+    const distance = touchStartY.current - currentY;
+
+    if (distance <= 0) {
+      setReturnPull(0);
       return;
     }
 
@@ -202,6 +226,7 @@ export function usePortfolioNavigation({
   return {
     backButtonRef,
     portfolioButtonRef,
+    portfolioScrollRef,
     returnPull,
     siteFrameRef,
     touchHandlers: {

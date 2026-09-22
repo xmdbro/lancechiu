@@ -288,14 +288,13 @@ a:focus-visible {
   animation: pulse 2.1s ease-in-out infinite;
 }
 
-.portfolio-return-cue {
+.panel-scroll-cue {
   position: absolute;
   bottom: max(1.5rem, env(safe-area-inset-bottom));
   left: 50%;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(244, 242, 236, 0.34);
   font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -303,13 +302,27 @@ a:focus-visible {
   white-space: nowrap;
 }
 
-.return-cue-arrow {
-  position: relative;
+.panel-scroll-cue--intro {
+  color: rgba(23, 23, 21, 0.38);
+}
+
+.panel-scroll-cue--portfolio {
+  color: rgba(244, 242, 236, 0.34);
+}
+
+.scroll-cue-arrow {
   width: 0.65rem;
   height: 0.65rem;
   border-top: 1px solid currentColor;
   border-left: 1px solid currentColor;
+}
+
+.scroll-cue-arrow--up {
   transform: translateY(0.12rem) rotate(45deg);
+}
+
+.scroll-cue-arrow--down {
+  transform: translateY(-0.12rem) rotate(-135deg);
 }
 
 .sr-only {

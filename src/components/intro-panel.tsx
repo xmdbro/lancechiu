@@ -146,6 +146,14 @@ export function IntroPanel({
           ))}
         </nav>
       </div>
+
+      <div
+        className="panel-scroll-cue panel-scroll-cue--intro"
+        aria-hidden="true"
+      >
+        <span className="scroll-cue-arrow scroll-cue-arrow--down" />
+        Scroll down to view portfolio
+      </div>
     </section>
   );
 }

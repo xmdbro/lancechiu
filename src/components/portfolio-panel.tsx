@@ -63,8 +63,11 @@ export function PortfolioPanel({
         </p>
       </InView>
 
-      <div className="portfolio-return-cue" aria-hidden="true">
-        <span className="return-cue-arrow" />
+      <div
+        className="panel-scroll-cue panel-scroll-cue--portfolio"
+        aria-hidden="true"
+      >
+        <span className="scroll-cue-arrow scroll-cue-arrow--up" />
         Scroll up to return
       </div>
     </motion.section>

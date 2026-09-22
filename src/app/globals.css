@@ -40,6 +40,12 @@ button {
   border: 0;
 }
 
+.copy-button {
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 a {
   text-decoration: none;
 }

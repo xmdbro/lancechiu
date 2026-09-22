@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { WritingCollection } from "@/components/writing-collection";
+import { CopyButton } from "@/components/copy-button";
 import { getAllWriting } from "@/content/writing";
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ export default async function WritingPage() {
 
       <footer className="writing-footer">
         <span>© {new Date().getFullYear()} Lance Chiu</span>
-        <a href="mailto:hi@lancechiu.com">hi@lancechiu.com</a>
+        <CopyButton value="hi@lancechiu.com" label="Copy email address" />
       </footer>
     </main>
   );

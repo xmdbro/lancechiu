@@ -1,5 +1,6 @@
 import { FaGithub, FaGlobe } from "react-icons/fa6";
 import { InView } from "@/components/in-view";
+import { CopyButton } from "@/components/copy-button";
 import {
   portfolioContent,
   type PortfolioTimelineEntry,
@@ -154,12 +155,11 @@ export function PortfolioSections({ reduceMotion }: PortfolioSectionsProps) {
         <span className="portfolio-footer-copyright">
           © {currentYear} Lance Chiu. All rights reserved.
         </span>
-        <a
+        <CopyButton
           className="portfolio-footer-link"
-          href="mailto:hi@lancechiu.com"
-        >
-          hi@lancechiu.com
-        </a>
+          value="hi@lancechiu.com"
+          label="Copy email address"
+        />
       </footer>
     </>
   );

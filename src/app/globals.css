@@ -219,10 +219,32 @@ a:focus-visible {
 }
 
 .portfolio-panel {
+  isolation: isolate;
   background: var(--panel);
   box-shadow: 0 -1.5rem 4rem rgba(23, 23, 21, 0.16);
   color: var(--panel-ink);
   padding: 0;
+}
+
+.portfolio-panel::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-color: #32322c;
+  background-image: url("./monet.jpg");
+  background-position: center 48%;
+  background-size: cover;
+  background-blend-mode: luminosity;
+  content: "";
+  filter: grayscale(1) contrast(0.92) brightness(0.52);
+  -webkit-mask-image: radial-gradient(circle, #000 0 1px, transparent 1.25px);
+  -webkit-mask-position: center;
+  -webkit-mask-size: 7px 7px;
+  mask-image: radial-gradient(circle, #000 0 1px, transparent 1.25px);
+  mask-position: center;
+  mask-size: 7px 7px;
+  opacity: 0.24;
+  pointer-events: none;
 }
 
 .portfolio-panel::before {

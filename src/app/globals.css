@@ -79,14 +79,43 @@ a:focus-visible {
 
 .intro-panel {
   background:
-    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.68), transparent 38%),
+    radial-gradient(circle at 42% 45%, rgba(255, 255, 255, 0.72), transparent 36%),
     var(--paper);
   padding: clamp(1.5rem, 5vw, 4rem);
 }
 
 .intro-card {
+  position: relative;
+  z-index: 1;
   width: min(100%, 25rem);
-  transform: translateY(-2vh);
+  transform: translate(clamp(-8rem, -8vw, -3.5rem), -2vh);
+}
+
+.ascii-rain {
+  position: absolute;
+  z-index: 0;
+  top: -4%;
+  right: -2.5rem;
+  bottom: -4%;
+  width: clamp(24rem, 38vw, 36rem);
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28),
+    #000 6%,
+    #000 94%,
+    rgba(0, 0, 0, 0.28)
+  );
+  pointer-events: none;
+}
+
+.ascii-rain::before {
+  position: absolute;
+  z-index: 2;
+  inset: 0 auto 0 0;
+  width: 14%;
+  background: linear-gradient(to right, var(--paper), transparent);
+  content: "";
 }
 
 .intro-name,
@@ -300,6 +329,7 @@ a:focus-visible {
   text-transform: uppercase;
   transform: translateX(-50%);
   white-space: nowrap;
+  z-index: 1;
 }
 
 .panel-scroll-cue--intro {
@@ -345,6 +375,18 @@ a:focus-visible {
 
   50% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .intro-card {
+    transform: translateY(-2vh);
+  }
+
+  .ascii-rain {
+    right: -12rem;
+    width: 24rem;
+    opacity: 0.34;
   }
 }
 

@@ -7,6 +7,7 @@ import {
   FaLastfm,
   FaLinkedinIn,
 } from "react-icons/fa6";
+import { AsciiRain } from "@/components/ascii-rain";
 
 const socialLinks = [
   {
@@ -76,6 +77,8 @@ export function IntroPanel({
       aria-hidden={portfolioOpen}
       inert={portfolioOpen || undefined}
     >
+      <AsciiRain />
+
       <div className="intro-card">
         <h1 className="intro-name">Lance Chiu</h1>
 

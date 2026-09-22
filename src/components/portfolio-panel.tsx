@@ -3,7 +3,6 @@
 import { useState, type RefObject } from "react";
 import { motion } from "motion/react";
 import { InView } from "@/components/in-view";
-// import { PortfolioBackground } from "@/components/portfolio-background";
 import { PortfolioSections } from "@/components/portfolio-sections";
 
 type PortfolioPanelProps = {
@@ -38,8 +37,6 @@ export function PortfolioPanel({
           : { type: "spring", stiffness: 520, damping: 45, mass: 0.7 }
       }
     >
-      {/* <PortfolioBackground /> */}
-
       <button
         ref={backButtonRef}
         className="back-button"

@@ -81,7 +81,7 @@ export function PortfolioPanel({
         aria-hidden="true"
       >
         <span className="scroll-cue-arrow scroll-cue-arrow--down" />
-        Scroll down to view
+        Scroll down to view projects
       </div>
     </motion.section>
   );

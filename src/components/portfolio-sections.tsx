@@ -43,28 +43,32 @@ export function PortfolioSections() {
   return (
     <>
       <header className="portfolio-hero">
-        <p className="portfolio-eyebrow">{portfolioContent.eyebrow}</p>
-        <h2 className="portfolio-name">{portfolioContent.title}</h2>
-        <p className="portfolio-introduction">
-          {portfolioContent.introduction}
-        </p>
-        <p className="portfolio-byline">
-          <span className="portfolio-byline-dot" aria-hidden="true" />
-          {portfolioContent.byline}
-        </p>
+        <div className="portfolio-hero-intro">
+          <p className="portfolio-eyebrow">{portfolioContent.eyebrow}</p>
+          <h2 className="portfolio-name">{portfolioContent.title}</h2>
+          <p className="portfolio-introduction">
+            {portfolioContent.introduction}
+          </p>
+          <p className="portfolio-byline">
+            <span className="portfolio-byline-dot" aria-hidden="true" />
+            {portfolioContent.byline}
+          </p>
+        </div>
+
+        <div className="portfolio-hero-details">
+          <section className="portfolio-hero-section" id="education">
+            <SectionHeading index="01" title="Education" />
+            <Timeline entries={portfolioContent.education} />
+          </section>
+
+          <section className="portfolio-hero-section" id="experience">
+            <SectionHeading index="02" title="Experience" />
+            <Timeline entries={portfolioContent.experience} />
+          </section>
+        </div>
       </header>
 
       <div className="portfolio-section-stack">
-        <section className="portfolio-section" id="education">
-          <SectionHeading index="01" title="Education" />
-          <Timeline entries={portfolioContent.education} />
-        </section>
-
-        <section className="portfolio-section" id="experience">
-          <SectionHeading index="02" title="Experience" />
-          <Timeline entries={portfolioContent.experience} />
-        </section>
-
         <section className="portfolio-section" id="projects">
           <SectionHeading index="03" title="Projects" />
           <ol className="portfolio-project-list">

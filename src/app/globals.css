@@ -333,13 +333,39 @@ a:focus-visible {
 }
 
 .portfolio-hero {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.85fr) minmax(24rem, 1.15fr);
+  align-items: center;
+  gap: clamp(3.5rem, 8vw, 8rem);
   min-height: 100vh;
   min-height: 100dvh;
-  max-width: 38rem;
+  width: 100%;
+  padding-block: clamp(5rem, 10vh, 8rem);
+}
+
+.portfolio-hero-intro {
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: clamp(5rem, 10vh, 8rem);
+}
+
+.portfolio-hero-details {
+  display: grid;
+  gap: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+.portfolio-hero-section {
+  display: grid;
+  gap: 1.35rem;
+  scroll-margin-top: 2rem;
+}
+
+.portfolio-hero-section .portfolio-section-heading h2 {
+  font-size: clamp(1.4rem, 2.25vw, 2rem);
+}
+
+.portfolio-hero-section .portfolio-entry {
+  padding-block: clamp(1rem, 2.25vh, 1.5rem);
 }
 
 .portfolio-eyebrow {
@@ -660,6 +686,22 @@ a:focus-visible {
     width: min(100%, 34rem);
   }
 
+  .portfolio-hero {
+    display: block;
+    min-height: auto;
+    padding-block: 0 clamp(3.5rem, 8vh, 5rem);
+  }
+
+  .portfolio-hero-intro {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-block: 6rem;
+  }
+
+  .portfolio-hero-details {
+    gap: 3.5rem;
+  }
+
   .portfolio-name {
     font-size: clamp(2.7rem, 13vw, 4.25rem);
   }
@@ -701,7 +743,7 @@ a:focus-visible {
     padding-inline: 0.5rem;
   }
 
-  .portfolio-hero {
+  .portfolio-hero-intro {
     padding-top: 6rem;
   }
 

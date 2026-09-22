@@ -37,7 +37,7 @@ export const portfolioContent: PortfolioContent = {
       organization: "De La Salle University",
       period: "2024 — 2028",
       description:
-        "Majored in Network Information Security & Associated with the Center for Networking and Information Security (CNIS).",
+        "Majored in Network Information Security under the Center for Networking and Information Security (CNIS).",
     },
   ],
   experience: [

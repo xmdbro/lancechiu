@@ -70,7 +70,10 @@ export function PortfolioPanel({
           }}
           viewOptions={{ amount: 0.08, once: true }}
         >
-          <PortfolioSections />
+          <PortfolioSections
+            key={portfolioOpen ? "portfolio-open" : "portfolio-closed"}
+            reduceMotion={reduceMotion}
+          />
         </InView>
       </div>
 

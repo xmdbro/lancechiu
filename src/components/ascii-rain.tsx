@@ -29,6 +29,10 @@ https://asciify.org/background-templates/rain.js
 
 import { useEffect, useRef } from "react";
 
+const DEFAULT_RAIN_CHARACTERS =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" +
+  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
 type RainOptions = {
   opacity?: number;
   fontSize?: number;
@@ -137,12 +141,12 @@ function mountRainBackground(target: HTMLElement, options: RainOptions = {}) {
   const {
     opacity = 0.7,
     fontSize = 14,
-    chars = "0123456789ABCDEF@#$&*+=/<>",
+    chars = DEFAULT_RAIN_CHARACTERS,
     accentColor = "#171715",
     color = "#171715",
     speed = 0.6,
     density = 1.0,
-    tailLength = 18,
+    tailLength = 20,
   } = options;
   const originalPosition = target.style.position;
 

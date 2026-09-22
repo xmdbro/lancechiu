@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type RefObject } from "react";
+import Link from "next/link";
 import {
   FaGithub,
   FaInstagram,
@@ -130,6 +131,12 @@ export function IntroPanel({
           >
             Resume
           </a>
+          <span className="nav-divider" aria-hidden="true">
+            /
+          </span>
+          <Link className="nav-link" href="/writing">
+            Writing
+          </Link>
         </nav>
 
         <nav className="social-nav" aria-label="Social links">

@@ -547,7 +547,13 @@ a:focus-visible {
   text-align: right;
 }
 
-.portfolio-project-github {
+.portfolio-project-links {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.portfolio-project-icon-link {
   display: inline-flex;
   width: 1.35rem;
   height: 1.35rem;
@@ -560,12 +566,12 @@ a:focus-visible {
     transform 180ms ease;
 }
 
-.portfolio-project-github:hover {
+.portfolio-project-icon-link:hover {
   color: var(--panel-ink);
   transform: translateY(-2px);
 }
 
-.portfolio-project-github:focus-visible {
+.portfolio-project-icon-link:focus-visible {
   border-radius: 999px;
   outline: 1px solid currentColor;
   outline-offset: 0.2rem;

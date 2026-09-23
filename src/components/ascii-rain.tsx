@@ -28,10 +28,10 @@ https://asciify.org/background-templates/rain.js
 */
 
 import { useEffect, useRef } from "react";
-
-const DEFAULT_RAIN_CHARACTERS =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" +
-  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+import {
+  createRainFrame,
+  DEFAULT_RAIN_CHARACTERS,
+} from "@/lib/ascii-rain";
 
 type RainOptions = {
   opacity?: number;
@@ -66,16 +66,6 @@ function parseColor(color: string): Rgb | null {
   return rgb ? { r: +rgb[1], g: +rgb[2], b: +rgb[3] } : null;
 }
 
-function seededNoise(x: number, y: number) {
-  let value = x * 127 + y * 311;
-  value = (value >> 13) ^ value;
-
-  return (
-    ((value * (value * value * 15731 + 789221) + 1376312589) & 2147483647) /
-    2147483647
-  );
-}
-
 function renderRain(
   context: CanvasRenderingContext2D,
   width: number,
@@ -98,42 +88,29 @@ function renderRain(
   const rows = Math.ceil(height / cellHeight);
   const body = parseColor(color) ?? { r: 55, g: 55, b: 55 };
   const accent = parseColor(accentColor) ?? body;
-  const cycle = rows + tailLength;
+  const cells = createRainFrame({
+    chars,
+    columns,
+    density,
+    rows,
+    speed,
+    tailLength,
+    time,
+  });
 
   context.clearRect(0, 0, width, height);
   context.font = `${fontSize}px monospace`;
   context.textBaseline = "top";
 
-  for (let column = 0; column < columns; column += 1) {
-    if (seededNoise(column * 17, 3) > density) {
-      continue;
-    }
+  for (const cell of cells) {
+    const ink = cell.isHead ? accent : body;
 
-    const columnSpeed = (0.5 + seededNoise(column * 31, 7) * 1.5) * speed;
-    const offset = seededNoise(column * 13, 11) * cycle;
-    const head = Math.floor((time * columnSpeed * 7 + offset) % cycle);
-    const x = column * cellWidth;
-
-    for (let tailIndex = 0; tailIndex <= tailLength; tailIndex += 1) {
-      const row = head - (tailLength - tailIndex);
-
-      if (row < 0 || row >= rows) {
-        continue;
-      }
-
-      const characterValue = seededNoise(
-        column * 53 + Math.floor(time * 5 + tailIndex),
-        row * 7,
-      );
-      const character = chars[Math.floor(characterValue * chars.length)];
-      const tailProgress = tailIndex / tailLength;
-      const isHead = tailIndex === tailLength;
-      const ink = isHead ? accent : body;
-      const alpha = isHead ? 0.72 : tailProgress * 0.8;
-
-      context.fillStyle = `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${alpha})`;
-      context.fillText(character, x, row * cellHeight);
-    }
+    context.fillStyle = `rgba(${ink.r}, ${ink.g}, ${ink.b}, ${cell.alpha})`;
+    context.fillText(
+      cell.character,
+      cell.column * cellWidth,
+      cell.row * cellHeight,
+    );
   }
 }
 

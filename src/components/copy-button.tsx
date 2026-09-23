@@ -58,9 +58,9 @@ export function CopyButton({
 
   const visibleLabel =
     status === "copied"
-      ? "Copied"
+      ? "[ Copied! ]"
       : status === "error"
-        ? "Copy failed"
+        ? "[ Copy failed ]"
         : children ?? value;
 
   return (

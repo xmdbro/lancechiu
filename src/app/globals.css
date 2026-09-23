@@ -64,7 +64,7 @@ a:focus-visible {
   overflow: hidden;
   background: var(--paper);
   overscroll-behavior: none;
-  touch-action: pan-x;
+  touch-action: pan-y pinch-zoom;
 }
 
 .panel-track {
@@ -312,9 +312,10 @@ a:focus-visible {
   overflow-y: auto;
   padding-inline: clamp(1.5rem, 5vw, 4rem);
   overscroll-behavior-y: contain;
-  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   scrollbar-color: rgba(244, 242, 236, 0.28) transparent;
   scrollbar-width: thin;
+  touch-action: pan-y;
 }
 
 .portfolio-scroll:focus-visible {
@@ -773,6 +774,13 @@ a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+  }
+
   *,
   *::before,
   *::after {
@@ -1004,6 +1012,70 @@ a:focus-visible {
   font-size: clamp(1.55rem, 3.4vw, 2.7rem);
   letter-spacing: -0.035em;
   line-height: 1;
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.home-slide-forward) {
+  animation: article-exit-left 160ms ease-in both;
+}
+
+::view-transition-new(.home-slide-forward) {
+  animation: article-enter-right 400ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+::view-transition-old(.home-slide-back) {
+  animation: article-exit-right 160ms ease-in both;
+}
+
+::view-transition-new(.home-slide-back) {
+  animation: article-enter-left 400ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+::view-transition-old(.article-slide-forward) {
+  animation: article-exit-left 160ms ease-in both;
+}
+
+::view-transition-new(.article-slide-forward) {
+  animation: article-enter-right 400ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+::view-transition-old(.article-slide-back) {
+  animation: article-exit-right 160ms ease-in both;
+}
+
+::view-transition-new(.article-slide-back) {
+  animation: article-enter-left 400ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+@keyframes article-exit-left {
+  to {
+    opacity: 0;
+    translate: -5rem 0;
+  }
+}
+
+@keyframes article-enter-right {
+  from {
+    opacity: 0;
+    translate: 5rem 0;
+  }
+}
+
+@keyframes article-exit-right {
+  to {
+    opacity: 0;
+    translate: 5rem 0;
+  }
+}
+
+@keyframes article-enter-left {
+  from {
+    opacity: 0;
+    translate: -5rem 0;
+  }
 }
 
 .writing-list-description {

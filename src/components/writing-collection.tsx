@@ -83,7 +83,11 @@ export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
         <ol className="writing-list">
           {visibleEntries.map((entry, index) => (
             <li key={entry.slug}>
-              <Link className="writing-list-link" href={`/writing/${entry.slug}`}>
+              <Link
+                className="writing-list-link"
+                href={`/writing/${entry.slug}`}
+                transitionTypes={["article-forward"]}
+              >
                 <span className="writing-list-index" aria-hidden="true">
                   {String(index + 1).padStart(2, "0")}
                 </span>

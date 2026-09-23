@@ -136,7 +136,11 @@ export function IntroPanel({
           <span className="nav-divider" aria-hidden="true">
             /
           </span>
-          <Link className="nav-link" href="/writing">
+          <Link
+            className="nav-link"
+            href="/writing"
+            transitionTypes={["home-forward"]}
+          >
             Writing
           </Link>
         </nav>

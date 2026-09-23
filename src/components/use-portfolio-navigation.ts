@@ -12,7 +12,6 @@ import {
 const ENTER_SCROLL_THRESHOLD = 80;
 const RETURN_SCROLL_THRESHOLD = 240;
 const ENTER_TOUCH_THRESHOLD = 64;
-const RETURN_TOUCH_THRESHOLD = 160;
 const MAX_RETURN_PULL = 56;
 
 type UsePortfolioNavigationOptions = {
@@ -35,7 +34,6 @@ export function usePortfolioNavigation({
   const scrollIntent = useRef(0);
   const scrollResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStartY = useRef<number | null>(null);
-  const touchStartScrollTop = useRef(0);
 
   function resetScrollIntent() {
     scrollIntent.current = 0;
@@ -159,49 +157,23 @@ export function usePortfolioNavigation({
   }, [portfolioOpen, setPortfolioOpen]);
 
   const handleTouchStart: TouchEventHandler<HTMLElement> = (event) => {
+    if (portfolioOpen) {
+      touchStartY.current = null;
+      return;
+    }
+
     touchStartY.current = event.touches[0]?.clientY ?? null;
-    touchStartScrollTop.current = portfolioScrollRef.current?.scrollTop ?? 0;
     resetScrollIntent();
   };
 
   const handleTouchMove: TouchEventHandler<HTMLElement> = (event) => {
-    if (touchStartY.current === null) {
+    if (portfolioOpen || touchStartY.current === null) {
       return;
     }
 
     const currentY = event.touches[0]?.clientY;
 
     if (currentY === undefined) {
-      return;
-    }
-
-    if (portfolioOpen) {
-      const scrollDistance = touchStartY.current - currentY;
-
-      if (scrollDistance >= 0 || touchStartScrollTop.current > 0) {
-        if (portfolioScrollRef.current) {
-          portfolioScrollRef.current.scrollTop = Math.max(
-            0,
-            touchStartScrollTop.current + scrollDistance,
-          );
-        }
-
-        setReturnPull(0);
-        return;
-      }
-
-      const distance = Math.abs(scrollDistance);
-
-      if (!reduceMotion) {
-        setReturnPull(Math.min(MAX_RETURN_PULL, distance * 0.35));
-      }
-
-      if (distance >= RETURN_TOUCH_THRESHOLD) {
-        touchStartY.current = null;
-        setReturnPull(0);
-        setPortfolioOpen(false);
-      }
-
       return;
     }
 
@@ -220,7 +192,10 @@ export function usePortfolioNavigation({
 
   const handleTouchEnd: TouchEventHandler<HTMLElement> = () => {
     touchStartY.current = null;
-    resetScrollIntent();
+
+    if (!portfolioOpen) {
+      resetScrollIntent();
+    }
   };
 
   return {

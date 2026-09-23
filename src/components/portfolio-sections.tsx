@@ -1,5 +1,6 @@
-import { FaGithub } from "react-icons/fa6";
+import { FaGithub, FaGlobe } from "react-icons/fa6";
 import { InView } from "@/components/in-view";
+import { CopyButton } from "@/components/copy-button";
 import {
   portfolioContent,
   type PortfolioTimelineEntry,
@@ -118,16 +119,30 @@ export function PortfolioSections({ reduceMotion }: PortfolioSectionsProps) {
                     <span className="portfolio-project-year">
                       {project.year}
                     </span>
-                    <a
-                      className="portfolio-project-github"
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`View ${project.title} on GitHub`}
-                      title={`View ${project.title} on GitHub`}
-                    >
-                      <FaGithub aria-hidden="true" />
-                    </a>
+                    <div className="portfolio-project-links">
+                      {project.href ? (
+                        <a
+                          className="portfolio-project-icon-link"
+                          href={project.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Visit the ${project.title} website`}
+                          title={`Visit the ${project.title} website`}
+                        >
+                          <FaGlobe aria-hidden="true" />
+                        </a>
+                      ) : null}
+                      <a
+                        className="portfolio-project-icon-link"
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`View ${project.title} on GitHub`}
+                        title={`View ${project.title} on GitHub`}
+                      >
+                        <FaGithub aria-hidden="true" />
+                      </a>
+                    </div>
                   </div>
                 </li>
               ))}
@@ -140,12 +155,11 @@ export function PortfolioSections({ reduceMotion }: PortfolioSectionsProps) {
         <span className="portfolio-footer-copyright">
           © {currentYear} Lance Chiu. All rights reserved.
         </span>
-        <a
+        <CopyButton
           className="portfolio-footer-link"
-          href="mailto:hi@lancechiu.com"
-        >
-          hi@lancechiu.com
-        </a>
+          value="hi@lancechiu.com"
+          label="Copy email address"
+        />
       </footer>
     </>
   );

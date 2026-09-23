@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type RefObject } from "react";
+import Link from "next/link";
 import {
   FaGithub,
   FaInstagram,
@@ -8,6 +9,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 import { AsciiRain } from "@/components/ascii-rain";
+import { CopyButton } from "@/components/copy-button";
 
 const socialLinks = [
   {
@@ -83,17 +85,18 @@ export function IntroPanel({
         <h1 className="intro-name">Lance Chiu</h1>
 
         <div className="contact-list">
-          <a className="text-link" href="mailto:hi@lancechiu.com">
-            hi@lancechiu.com
-          </a>
+          <CopyButton
+            className="text-link"
+            value="hi@lancechiu.com"
+            label="Copy email address"
+          />
 
           {phoneState.status === "revealed" ? (
-            <a
+            <CopyButton
               className="text-link"
-              href={`tel:${phoneState.phone.replace(/[^+\d]/g, "")}`}
-            >
-              {phoneState.phone}
-            </a>
+              value={phoneState.phone}
+              label="Copy phone number"
+            />
           ) : (
             <button
               className="phone-reveal"
@@ -130,6 +133,12 @@ export function IntroPanel({
           >
             Resume
           </a>
+          <span className="nav-divider" aria-hidden="true">
+            /
+          </span>
+          <Link className="nav-link" href="/writing">
+            Writing
+          </Link>
         </nav>
 
         <nav className="social-nav" aria-label="Social links">

@@ -29,7 +29,7 @@ export const portfolioContent: PortfolioContent = {
   eyebrow: "Portfolio / Profile",
   title: "A work in progress.",
   introduction:
-    "A growing record of what I have studied, where I have worked, and the things I have built along the way.",
+    "A record of what I have studied and the things I have built along the way.",
   byline: "Lance Chiu, De La Salle University",
   education: [
     {
@@ -64,6 +64,7 @@ export const portfolioContent: PortfolioContent = {
       year: "Aug. 2026",
       disciplines: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQL"],
       githubUrl: "https://github.com/resole-ph/resole",
+      href: "https://resole-main.vercel.app/",
     },
     {
       title: "Listening",
@@ -72,6 +73,7 @@ export const portfolioContent: PortfolioContent = {
       year: "Aug. 2026",
       disciplines: ["React", "Typescript"],
       githubUrl: "https://github.com/xmdbro/listening",
+      href: "https://listening.lancechiu.com",
     },
     {
       title: "Leap 2025 Registration System",
@@ -88,6 +90,7 @@ export const portfolioContent: PortfolioContent = {
       year: "Sep. 2026",
       disciplines: ["Python", "FastAPI", "Valkey"],
       githubUrl: "https://github.com/xmdbro/suanpan",
+      href: "https://suanpan.lancechiu.com",
     },
     {
       title: "PromptPatrol",

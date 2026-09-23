@@ -1,14 +1,17 @@
 "use client";
 
-import type { RefObject } from "react";
+import { useState, type RefObject } from "react";
 import { motion } from "motion/react";
 import { InView } from "@/components/in-view";
+// import { PortfolioBackground } from "@/components/portfolio-background";
+import { PortfolioSections } from "@/components/portfolio-sections";
 
 type PortfolioPanelProps = {
   portfolioOpen: boolean;
   returnPull: number;
   reduceMotion: boolean | null;
   backButtonRef: RefObject<HTMLButtonElement | null>;
+  portfolioScrollRef: RefObject<HTMLDivElement | null>;
   onClose: () => void;
 };
 
@@ -17,8 +20,11 @@ export function PortfolioPanel({
   returnPull,
   reduceMotion,
   backButtonRef,
+  portfolioScrollRef,
   onClose,
 }: PortfolioPanelProps) {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
   return (
     <motion.section
       className="panel portfolio-panel"
@@ -32,6 +38,8 @@ export function PortfolioPanel({
           : { type: "spring", stiffness: 520, damping: 45, mass: 0.7 }
       }
     >
+      {/* <PortfolioBackground /> */}
+
       <button
         ref={backButtonRef}
         className="back-button"
@@ -42,30 +50,41 @@ export function PortfolioPanel({
         Back
       </button>
 
-      <InView
-        className="portfolio-content"
-        variants={{
-          hidden: { opacity: 0, y: 36, filter: "blur(8px)" },
-          visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-        }}
-        transition={{
-          duration: reduceMotion ? 0 : 0.65,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        viewOptions={{ amount: 0.45, once: true }}
+      <div
+        ref={portfolioScrollRef}
+        className="portfolio-scroll"
+        role="region"
+        aria-label="Portfolio content"
+        tabIndex={0}
+        onScroll={(event) => setHasScrolled(event.currentTarget.scrollTop > 16)}
       >
-        <p className="portfolio-eyebrow">Portfolio / 001</p>
-        <h2 className="portfolio-name">Under Construction...</h2>
-        <p className="portfolio-subtitle">Sorry about that!</p>
-        <p className="portfolio-byline">
-          <span className="portfolio-byline-dot" aria-hidden="true" />
-          Lance Chiu, De La Salle University
-        </p>
-      </InView>
+        <InView
+          className="portfolio-content"
+          variants={{
+            hidden: { opacity: 0, y: 36, filter: "blur(8px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.65,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          viewOptions={{ amount: 0.08, once: true }}
+        >
+          <PortfolioSections
+            key={portfolioOpen ? "portfolio-open" : "portfolio-closed"}
+            reduceMotion={reduceMotion}
+          />
+        </InView>
+      </div>
 
-      <div className="portfolio-return-cue" aria-hidden="true">
-        <span className="return-cue-arrow" />
-        Scroll up to return
+      <div
+        className={`panel-scroll-cue panel-scroll-cue--portfolio${
+          hasScrolled ? " panel-scroll-cue--hidden" : ""
+        }`}
+        aria-hidden="true"
+      >
+        <span className="scroll-cue-arrow scroll-cue-arrow--down" />
+        Scroll down to view projects
       </div>
     </motion.section>
   );

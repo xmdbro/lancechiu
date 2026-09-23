@@ -29,7 +29,7 @@ export const portfolioContent: PortfolioContent = {
   eyebrow: "Portfolio / Profile",
   title: "A work in progress.",
   introduction:
-    "A growing record of what I have studied, where I have worked, and the things I have built along the way.",
+    "A record of what I have studied and the things I have built along the way.",
   byline: "Lance Chiu, De La Salle University",
   education: [
     {

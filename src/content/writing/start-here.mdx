@@ -1,0 +1,36 @@
+export const metadata = {
+  title: "Start here",
+  description: "A preview of how a piece will look once it is published.",
+  date: "2026-09-22",
+  kind: "Note",
+  draft: true,
+}
+
+```mdx
+export const metadata = {
+  title: "Start here",
+  description: "A preview of how a piece will look once it is published.",
+  date: "2026-09-22",
+  kind: "Note",
+  draft: true,
+}
+```
+
+Drafts appear during local development and are omitted from production. Set `draft` to `false` when a piece is ready to publish. `kind` is free text; useful values include `Prose`, `Note`, and `Write-up`.
+
+This is a draft, so it appears while the site is running locally and stays out of the production build. Replace this paragraph with the opening of your piece.
+
+## A section heading
+
+Write in ordinary Markdown. Separate paragraphs with a blank line. You can use **bold**, *italics*, [links](https://example.com), quotations, and lists without touching the page code.
+
+```ts
+const piece = {
+  title: "Something worth remembering",
+  kind: "Note",
+}
+```
+
+> A quotation can breathe a little differently from the rest of the piece.
+
+When this is ready, change `draft: true` to `draft: false`. Rename the file to choose the URL: `my-piece.mdx` becomes `/writing/my-piece`.

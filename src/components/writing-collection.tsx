@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { WritingEntry } from "@/content/writing";
+import { AnimatedSelection } from "@/components/ui/animated-selection";
 
 type SortOrder = "newest" | "earliest";
 
@@ -37,45 +38,29 @@ export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
   }, [entries, selectedKind, sortOrder]);
 
   return (
-    <section className="writing-collection" aria-label="Writing collection">
+    <section className="writing-collection" aria-label="Writings collection">
       <div className="writing-controls">
         <div className="writing-control-group">
           <span className="writing-control-label">Kind</span>
-          <div className="writing-control-options" role="group" aria-label="Filter by kind">
-            {["All", ...kinds].map((kind) => (
-              <button
-                className="writing-control-button"
-                type="button"
-                aria-pressed={selectedKind === kind}
-                key={kind}
-                onClick={() => setSelectedKind(kind)}
-              >
-                {kind}
-              </button>
-            ))}
-          </div>
+          <AnimatedSelection
+            label="Filter by kind"
+            options={["All", ...kinds].map((kind) => ({ value: kind, label: kind }))}
+            value={selectedKind}
+            onValueChange={setSelectedKind}
+          />
         </div>
 
         <div className="writing-control-group writing-control-group--sort">
           <span className="writing-control-label">Order</span>
-          <div className="writing-control-options" role="group" aria-label="Sort by date">
-            <button
-              className="writing-control-button"
-              type="button"
-              aria-pressed={sortOrder === "newest"}
-              onClick={() => setSortOrder("newest")}
-            >
-              Newest
-            </button>
-            <button
-              className="writing-control-button"
-              type="button"
-              aria-pressed={sortOrder === "earliest"}
-              onClick={() => setSortOrder("earliest")}
-            >
-              Earliest
-            </button>
-          </div>
+          <AnimatedSelection<SortOrder>
+            label="Sort by date"
+            options={[
+              { value: "newest", label: "Newest" },
+              { value: "earliest", label: "Earliest" },
+            ]}
+            value={sortOrder}
+            onValueChange={setSortOrder}
+          />
         </div>
       </div>
 
@@ -93,7 +78,7 @@ export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
                 </span>
                 <span className="writing-list-copy">
                   <span className="writing-list-title">
-                    {entry.title}
+                    <span className="writing-list-title-text">{entry.title}</span>
                     {entry.draft ? (
                       <span className="writing-draft-badge">Draft</span>
                     ) : null}

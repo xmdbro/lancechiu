@@ -6,7 +6,7 @@ import { PageTransition } from "@/components/page-transition";
 import { getAllWriting } from "@/content/writing";
 
 export const metadata: Metadata = {
-  title: "Writing — Lance Chiu",
+  title: "Writings — Lance Chiu",
   description: "Prose, notes, and write-ups by Lance Chiu.",
 };
 
@@ -25,7 +25,7 @@ export default async function WritingPage() {
             <span aria-hidden="true">←</span> Return to home
           </Link>
           <span><i>Words! Mere words!</i></span>
-          <h1>Writing</h1>
+          <h1>Writings</h1>
         </header>
 
         <section className="writing-index-intro" aria-label="About this collection">

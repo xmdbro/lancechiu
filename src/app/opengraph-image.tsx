@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa6";
 import { createRainFrame } from "@/lib/ascii-rain";
 
-export const alt = "Lance Chiu — portfolio and writing";
+export const alt = "Lance Chiu — portfolio and writings";
 export const size = {
   width: 1200,
   height: 630,
@@ -122,7 +122,7 @@ export default function OpenGraphImage() {
             <span style={{ margin: "0 18px", color: "#77766f" }}>/</span>
             <span>Resume</span>
             <span style={{ margin: "0 18px", color: "#77766f" }}>/</span>
-            <span>Writing</span>
+            <span>Writings</span>
           </div>
 
           <div

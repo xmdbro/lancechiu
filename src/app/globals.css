@@ -1070,28 +1070,44 @@ a:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .writing-control-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.38rem 0.58rem;
-  border: 1px solid transparent;
+  border: 0;
   background: transparent;
   color: rgba(23, 23, 21, 0.62);
   cursor: pointer;
   font-size: 0.64rem;
   letter-spacing: 0.06em;
-  transition: border-color 160ms ease, color 160ms ease;
+  transition: color 160ms ease;
 }
 
 .writing-control-button:hover {
-  border-color: rgba(23, 23, 21, 0.28);
   color: var(--ink);
 }
 
 .writing-control-button[aria-pressed="true"] {
-  border-color: var(--ink);
-  background: var(--ink);
   color: var(--paper);
+}
+
+.writing-control-selection {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: var(--ink);
+  pointer-events: none;
+}
+
+.writing-control-button-label {
+  position: relative;
+  z-index: 1;
 }
 
 .writing-list > li {
@@ -1133,6 +1149,20 @@ a:focus-visible {
   font-size: clamp(1.55rem, 3.4vw, 2.7rem);
   letter-spacing: -0.035em;
   line-height: 1;
+}
+
+.writing-list-title-text {
+  min-width: 0;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.12em;
+  transition: text-decoration-color 220ms ease;
+}
+
+.writing-list-link:hover .writing-list-title-text,
+.writing-list-link:focus-visible .writing-list-title-text {
+  text-decoration-color: currentColor;
 }
 
 ::view-transition {

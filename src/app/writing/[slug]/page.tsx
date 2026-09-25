@@ -42,13 +42,13 @@ export default async function WritingEntryPage({
   return (
     <PageTransition variant="article">
       <main className="writing-entry-page">
-        <nav className="writing-nav" aria-label="Writing navigation">
+        <nav className="writing-nav" aria-label="Writings navigation">
           <Link
             className="writing-back-link"
             href="/writing"
             transitionTypes={["article-back"]}
           >
-            <span aria-hidden="true">←</span> All writing
+            <span aria-hidden="true">←</span> All writings
           </Link>
           <Link href="/" transitionTypes={["home-back"]}>Lance Chiu</Link>
         </nav>
@@ -80,7 +80,7 @@ export default async function WritingEntryPage({
             href="/writing"
             transitionTypes={["article-back"]}
           >
-            <span aria-hidden="true">←</span> Back to all writing
+            <span aria-hidden="true">←</span> Back to all writings
           </Link>
         </footer>
       </main>

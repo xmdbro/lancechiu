@@ -142,7 +142,7 @@ export function IntroPanel({
             href="/writing"
             transitionTypes={["home-forward"]}
           >
-            Writing
+            Writings
           </Link>
         </nav>
 

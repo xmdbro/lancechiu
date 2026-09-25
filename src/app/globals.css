@@ -237,6 +237,114 @@ a:focus-visible {
   height: 100%;
 }
 
+.listening-status {
+  width: min(100%, 13rem);
+  max-width: 100%;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(23, 23, 21, 0.22);
+}
+
+.accordion-heading {
+  margin: 0;
+}
+
+.listening-status [data-slot="accordion-item"] {
+  position: relative;
+}
+
+.accordion-content-outer {
+  overflow: hidden;
+}
+
+.listening-status .accordion-content-outer {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.listening-status-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.2rem 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.listening-status-trigger-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+.listening-status-chevron {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.2rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 220ms ease;
+}
+
+.listening-status-trigger[data-state="open"] .listening-status-chevron {
+  transform: rotate(225deg);
+}
+
+.listening-status-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.listening-status-dot.is-playing {
+  background: var(--ink);
+  animation: pulse 2.1s ease-in-out infinite;
+}
+
+.listening-status-content {
+  padding: 0.8rem 0 0.2rem;
+}
+
+.listening-status-link {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+  max-width: 100%;
+}
+
+.listening-status-track {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listening-status-artist {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .portfolio-panel {
   isolation: isolate;
   background: var(--panel);

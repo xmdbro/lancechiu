@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa6";
 import { AsciiRain } from "@/components/ascii-rain";
 import { CopyButton } from "@/components/copy-button";
+import { ListeningStatus } from "@/components/listening-status";
 
 const socialLinks = [
   {
@@ -161,6 +162,7 @@ export function IntroPanel({
             </a>
           ))}
         </nav>
+        <ListeningStatus />
       </div>
 
       <div

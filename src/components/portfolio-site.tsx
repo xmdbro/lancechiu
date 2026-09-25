@@ -14,7 +14,10 @@ export function PortfolioSite() {
     portfolioButtonRef,
     portfolioScrollRef,
     returnPull,
+    introDrag,
+    isMouseDragging,
     siteFrameRef,
+    pointerHandlers,
     touchHandlers,
   } = usePortfolioNavigation({
     portfolioOpen,
@@ -23,12 +26,17 @@ export function PortfolioSite() {
   });
 
   return (
-    <main ref={siteFrameRef} className="site-frame" {...touchHandlers}>
+    <main
+      ref={siteFrameRef}
+      className={`site-frame${isMouseDragging ? " is-mouse-dragging" : ""}`}
+      {...touchHandlers}
+      {...pointerHandlers}
+    >
       <motion.div
         className="panel-track"
-        animate={{ y: portfolioOpen ? "-100dvh" : "0dvh" }}
+        animate={{ y: portfolioOpen ? "-100dvh" : `-${introDrag}px` }}
         transition={
-          reduceMotion
+          reduceMotion || isMouseDragging
             ? { duration: 0 }
             : { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
         }

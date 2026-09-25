@@ -67,6 +67,19 @@ a:focus-visible {
   touch-action: pan-y pinch-zoom;
 }
 
+@media (pointer: fine) {
+  .intro-panel,
+  .portfolio-scroll--at-top {
+    cursor: grab;
+  }
+
+  .site-frame.is-mouse-dragging,
+  .site-frame.is-mouse-dragging * {
+    cursor: grabbing !important;
+    user-select: none;
+  }
+}
+
 .panel-track {
   height: 200vh;
   height: 200dvh;

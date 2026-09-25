@@ -23,6 +23,7 @@ export function PortfolioPanel({
   onClose,
 }: PortfolioPanelProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [canDragBack, setCanDragBack] = useState(true);
 
   return (
     <motion.section
@@ -49,11 +50,15 @@ export function PortfolioPanel({
 
       <div
         ref={portfolioScrollRef}
-        className="portfolio-scroll"
+        className={`portfolio-scroll${canDragBack ? " portfolio-scroll--at-top" : ""}`}
         role="region"
         aria-label="Portfolio content"
         tabIndex={0}
-        onScroll={(event) => setHasScrolled(event.currentTarget.scrollTop > 16)}
+        onScroll={(event) => {
+          const scrollTop = event.currentTarget.scrollTop;
+          setHasScrolled(scrollTop > 16);
+          setCanDragBack(scrollTop <= 1);
+        }}
       >
         <InView
           className="portfolio-content"

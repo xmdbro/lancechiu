@@ -5,14 +5,28 @@ import {
   useRef,
   useState,
   type Dispatch,
+  type PointerEventHandler,
   type SetStateAction,
   type TouchEventHandler,
 } from "react";
+import { canStartMouseDrag } from "@/lib/mouse-drag";
 
 const ENTER_SCROLL_THRESHOLD = 80;
 const RETURN_SCROLL_THRESHOLD = 240;
 const ENTER_TOUCH_THRESHOLD = 64;
 const MAX_RETURN_PULL = 56;
+const MOUSE_DRAG_THRESHOLD = 6;
+const ENTER_MOUSE_THRESHOLD = 64;
+const RETURN_MOUSE_THRESHOLD = 120;
+
+type MouseDrag = {
+  pointerId: number;
+  startY: number;
+  lastY: number;
+  startedInPortfolio: boolean;
+  dragging: boolean;
+  returnDistance: number;
+};
 
 type UsePortfolioNavigationOptions = {
   portfolioOpen: boolean;
@@ -26,6 +40,8 @@ export function usePortfolioNavigation({
   setPortfolioOpen,
 }: UsePortfolioNavigationOptions) {
   const [returnPull, setReturnPull] = useState(0);
+  const [introDrag, setIntroDrag] = useState(0);
+  const [isMouseDragging, setIsMouseDragging] = useState(false);
   const siteFrameRef = useRef<HTMLElement>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
   const portfolioButtonRef = useRef<HTMLButtonElement>(null);
@@ -34,6 +50,7 @@ export function usePortfolioNavigation({
   const scrollIntent = useRef(0);
   const scrollResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStartY = useRef<number | null>(null);
+  const mouseDrag = useRef<MouseDrag | null>(null);
 
   function resetScrollIntent() {
     scrollIntent.current = 0;
@@ -198,12 +215,114 @@ export function usePortfolioNavigation({
     }
   };
 
+  const handlePointerDown: PointerEventHandler<HTMLElement> = (event) => {
+    if (
+      event.pointerType !== "mouse" ||
+      event.button !== 0 ||
+      !canStartMouseDrag(event.target) ||
+      (portfolioOpen && (portfolioScrollRef.current?.scrollTop ?? 0) > 1)
+    ) {
+      return;
+    }
+
+    // Capture on press so native text selection cannot take over the gesture
+    // before the movement threshold is reached on a physical mouse.
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    mouseDrag.current = {
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      lastY: event.clientY,
+      startedInPortfolio: portfolioOpen,
+      dragging: false,
+      returnDistance: 0,
+    };
+    resetScrollIntent();
+  };
+
+  const handlePointerMove: PointerEventHandler<HTMLElement> = (event) => {
+    const drag = mouseDrag.current;
+
+    if (!drag || event.pointerId !== drag.pointerId) {
+      return;
+    }
+
+    if (!drag.dragging) {
+      if (Math.abs(event.clientY - drag.startY) < MOUSE_DRAG_THRESHOLD) {
+        return;
+      }
+
+      drag.dragging = true;
+      setIsMouseDragging(true);
+    }
+
+    event.preventDefault();
+    const movement = event.clientY - drag.lastY;
+    drag.lastY = event.clientY;
+
+    if (!drag.startedInPortfolio) {
+      setIntroDrag(
+        reduceMotion
+          ? 0
+          : Math.min(140, Math.max(0, drag.startY - event.clientY)),
+      );
+      return;
+    }
+
+    drag.returnDistance = Math.max(0, drag.returnDistance + movement);
+
+    setReturnPull(
+      reduceMotion
+        ? 0
+        : Math.min(1, drag.returnDistance / RETURN_MOUSE_THRESHOLD) *
+            MAX_RETURN_PULL,
+    );
+  };
+
+  const finishPointerDrag: PointerEventHandler<HTMLElement> = (event) => {
+    const drag = mouseDrag.current;
+
+    if (!drag || event.pointerId !== drag.pointerId) {
+      return;
+    }
+
+    mouseDrag.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    setIsMouseDragging(false);
+    setIntroDrag(0);
+    setReturnPull(0);
+
+    if (!drag.dragging || event.type === "pointercancel") {
+      return;
+    }
+
+    if (drag.startedInPortfolio) {
+      if (drag.returnDistance >= RETURN_MOUSE_THRESHOLD) {
+        setPortfolioOpen(false);
+      }
+    } else if (drag.startY - event.clientY >= ENTER_MOUSE_THRESHOLD) {
+      setPortfolioOpen(true);
+    }
+  };
+
   return {
     backButtonRef,
     portfolioButtonRef,
     portfolioScrollRef,
     returnPull,
+    introDrag,
+    isMouseDragging,
     siteFrameRef,
+    pointerHandlers: {
+      onPointerDown: handlePointerDown,
+      onPointerMove: handlePointerMove,
+      onPointerUp: finishPointerDrag,
+      onPointerCancel: finishPointerDrag,
+      onLostPointerCapture: finishPointerDrag,
+    },
     touchHandlers: {
       onTouchStart: handleTouchStart,
       onTouchMove: handleTouchMove,

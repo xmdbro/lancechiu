@@ -977,8 +977,7 @@ a:focus-visible {
 }
 
 .writing-index-masthead > .writing-back-link,
-.writing-index-masthead > span,
-.writing-index-intro .writing-kicker {
+.writing-index-masthead > span {
   color: var(--muted);
   font-size: 0.65rem;
   letter-spacing: 0.15em;
@@ -1004,29 +1003,6 @@ a:focus-visible {
   font-size: clamp(1.15rem, 2vw, 1.5rem);
   font-weight: 700;
   line-height: 1;
-}
-
-.writing-index-intro {
-  display: flex;
-  min-height: clamp(9rem, 19vh, 13rem);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding-block: clamp(2.5rem, 6vh, 4rem);
-  text-align: center;
-}
-
-.writing-index-intro .writing-kicker {
-  margin: 0;
-}
-
-.writing-index-intro > p:last-child {
-  max-width: 38rem;
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.1rem, 2vw, 1.45rem);
-  line-height: 1.5;
 }
 
 .writing-entry-header h1 {
@@ -1428,10 +1404,6 @@ a:focus-visible {
   .writing-index-masthead > span {
     max-width: 8rem;
     text-align: right;
-  }
-
-  .writing-index-intro {
-    min-height: 9rem;
   }
 
   .writing-controls {

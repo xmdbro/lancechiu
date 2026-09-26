@@ -24,16 +24,9 @@ export default async function WritingPage() {
           >
             <span aria-hidden="true">←</span> Return to home
           </Link>
-          <span><i>Words! Mere words!</i></span>
+          <span>Prose / Notes / Technical Write-ups</span>
           <h1>Writings</h1>
         </header>
-
-        <section className="writing-index-intro" aria-label="About this collection">
-          <p className="writing-kicker">Prose / Notes / Technical Write-ups</p>
-          <p>
-            Things I wanted to hold onto long enough to put into words, i.e., <i>an archive of love.</i><br />
-          </p>
-        </section>
 
         {entries.length > 0 ? (
           <WritingCollection entries={entries} />

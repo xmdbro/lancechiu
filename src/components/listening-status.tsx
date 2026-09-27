@@ -81,11 +81,16 @@ export function ListeningStatus() {
             aria-label={
               data?.track
                 ? `${data.isPlaying ? "Now listening to" : "Recently played"} ${data.track.name} by ${data.track.artist}. Open Listening.`
-                : "Open Listening"
+                : "Checking listening status. Open Listening."
             }
           >
             <span className="listening-status-track">
-              <TextScramble>{data?.track?.name ?? "Open Listening"}</TextScramble>
+              <TextScramble>{data?.track?.name ?? "Checking"}</TextScramble>
+              {!data?.track ? (
+                <span className="listening-status-ellipsis" aria-hidden="true">
+                  <span>.</span><span>.</span><span>.</span>
+                </span>
+              ) : null}
             </span>
             {data?.track ? (
               <TextScramble className="listening-status-artist">{data.track.artist}</TextScramble>

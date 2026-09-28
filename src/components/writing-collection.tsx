@@ -41,9 +41,9 @@ export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
     <section className="writing-collection" aria-label="Writings collection">
       <div className="writing-controls">
         <div className="writing-control-group">
-          <span className="writing-control-label">Kind</span>
+          <span className="writing-control-label">Type</span>
           <AnimatedSelection
-            label="Filter by kind"
+            label="Filter by type"
             options={["All", ...kinds].map((kind) => ({ value: kind, label: kind }))}
             value={selectedKind}
             onValueChange={setSelectedKind}

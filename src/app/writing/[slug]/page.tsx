@@ -4,28 +4,20 @@ import { notFound } from "next/navigation";
 import { PageTransition } from "@/components/page-transition";
 import {
   formatWritingDate,
-  getAllWriting,
   getWriting,
 } from "@/content/writing";
-
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
-  const entries = await getAllWriting();
-  return entries.map(({ slug }) => ({ slug }));
-}
 
 export async function generateMetadata({
   params,
 }: PageProps<"/writing/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const writingModule = await getWriting(slug);
+  const writing = await getWriting(slug);
 
-  if (!writingModule) return {};
+  if (!writing) return {};
 
   return {
-    title: `${writingModule.metadata.title} — Lance Chiu`,
-    description: writingModule.metadata.description,
+    title: `${writing.title} — Lance Chiu`,
+    description: writing.description,
   };
 }
 
@@ -33,11 +25,9 @@ export default async function WritingEntryPage({
   params,
 }: PageProps<"/writing/[slug]">) {
   const { slug } = await params;
-  const writingModule = await getWriting(slug);
+  const writing = await getWriting(slug);
 
-  if (!writingModule) notFound();
-
-  const { default: Content, metadata } = writingModule;
+  if (!writing) notFound();
 
   return (
     <PageTransition variant="article">
@@ -56,22 +46,23 @@ export default async function WritingEntryPage({
         <article className="writing-entry">
           <header className="writing-entry-header">
             <div className="writing-entry-meta">
-              <span>{metadata.kind}</span>
+              <span>{writing.type}</span>
               <span aria-hidden="true">/</span>
-              <time dateTime={metadata.date}>
-                {formatWritingDate(metadata.date)}
+              <time dateTime={writing.date}>
+                {formatWritingDate(writing.date)}
               </time>
-              {metadata.draft ? (
+              {writing.draft ? (
                 <span className="writing-draft-badge">Draft</span>
               ) : null}
             </div>
-            <h1>{metadata.title}</h1>
-            <p>{metadata.description}</p>
+            <h1>{writing.title}</h1>
+            <p>{writing.description}</p>
           </header>
 
-          <div className="writing-prose">
-            <Content />
-          </div>
+          <div
+            className="writing-prose"
+            dangerouslySetInnerHTML={{ __html: writing.html }}
+          />
         </article>
 
         <footer className="writing-entry-footer">

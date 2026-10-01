@@ -18,24 +18,24 @@ function formatDate(date: string) {
 
 export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
-  const [selectedKind, setSelectedKind] = useState("All");
+  const [selectedType, setSelectedType] = useState("All");
 
-  const kinds = useMemo(
-    () => [...new Set(entries.map((entry) => entry.kind))].sort(),
+  const types = useMemo(
+    () => [...new Set(entries.map((entry) => entry.type))].sort(),
     [entries],
   );
 
   const visibleEntries = useMemo(() => {
     const filtered =
-      selectedKind === "All"
+      selectedType === "All"
         ? entries
-        : entries.filter((entry) => entry.kind === selectedKind);
+        : entries.filter((entry) => entry.type === selectedType);
 
     return [...filtered].sort((a, b) => {
       const difference = Date.parse(b.date) - Date.parse(a.date);
       return sortOrder === "newest" ? difference : -difference;
     });
-  }, [entries, selectedKind, sortOrder]);
+  }, [entries, selectedType, sortOrder]);
 
   return (
     <section className="writing-collection" aria-label="Writings collection">
@@ -44,9 +44,9 @@ export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
           <span className="writing-control-label">Type</span>
           <AnimatedSelection
             label="Filter by type"
-            options={["All", ...kinds].map((kind) => ({ value: kind, label: kind }))}
-            value={selectedKind}
-            onValueChange={setSelectedKind}
+            options={["All", ...types].map((type) => ({ value: type, label: type }))}
+            value={selectedType}
+            onValueChange={setSelectedType}
           />
         </div>
 
@@ -88,7 +88,7 @@ export function WritingCollection({ entries }: { entries: WritingEntry[] }) {
                   </span>
                 </span>
                 <span className="writing-list-meta">
-                  <span>{entry.kind}</span>
+                  <span>{entry.type}</span>
                   <time dateTime={entry.date}>{formatDate(entry.date)}</time>
                 </span>
                 <span className="writing-list-arrow" aria-hidden="true">

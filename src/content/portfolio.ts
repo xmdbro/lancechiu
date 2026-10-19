@@ -27,9 +27,9 @@ type PortfolioContent = {
 // Replace this copy and add or remove projects as the portfolio grows.
 export const portfolioContent: PortfolioContent = {
   eyebrow: "Portfolio / Profile",
-  title: "A work in progress.",
+  title: "software is beautiful",
   introduction:
-    "A record of what I have studied and the things I have built along the way.",
+    "My interests lie in operations, networks, and security. I am rich in love and try to put a lot of that love into the things that I make.",
   byline: "Lance Chiu, De La Salle University",
   education: [
     {
@@ -37,16 +37,16 @@ export const portfolioContent: PortfolioContent = {
       organization: "De La Salle University",
       period: "2024 — 2028",
       description:
-        "Majored in Network Information Security under the Center for Networking and Information Security (CNIS).",
+        "Major in Network Information Security under the Center for Networking and Information Security (CNIS).",
     },
   ],
   experience: [
     {
       title: "Associate Backend Engineer",
       organization: "La Salle Computer Society",
-      period: "Sep 2024. — Sep. 2026",
+      period: "Sep. 2024 — Sep. 2026",
       description:
-        "Contributed to the development of a university-wide website by working on the backend API implementation and database design. Built the system for high concurrency, supporting 30,000+ concurrent users across 302 events with a 99% uptime.",
+        "Built and maintained backend systems for the organisation’s internal tools and event registration platform, with contributions to API implementation and database design.",
     },
     // {
     //   title: "Earlier role title",
@@ -69,7 +69,7 @@ export const portfolioContent: PortfolioContent = {
     {
       title: "Listening",
       description:
-        "An elegant now-playing display for Last.fm showing song info, and integrating with OpenWeatherMap and Spotify APIs.",
+        "An elegant now-playing display for Last.fm showing song info, and integrating with OpenWeatherMap and Spotify APIs. Available as a standalone display and or embeddable SVG cards.",
       year: "Aug. 2026",
       disciplines: ["React", "Typescript"],
       githubUrl: "https://github.com/xmdbro/listening",
@@ -86,7 +86,7 @@ export const portfolioContent: PortfolioContent = {
     {
       title: "Suanpan",
       description:
-        "Astateless counting API with namespace based counters. Primarily privacy and performance driven, offering basic analytics without unnecessary complexity overhead",
+        "A stateless counting API with namespace based counters. Primarily privacy and performance driven, offering basic analytics without unnecessary complexity overhead",
       year: "Sep. 2026",
       disciplines: ["Python", "FastAPI", "Valkey"],
       githubUrl: "https://github.com/xmdbro/suanpan",
@@ -95,7 +95,7 @@ export const portfolioContent: PortfolioContent = {
     {
       title: "PromptPatrol",
       description:
-        "Hybrid SAST/DAST security scanner and fuzzing suite engineered to audit architectural blind spots and vulnerabilities in AI-generated (\"vibe-coded\") applications.",
+        "Hybrid SAST/DAST security scanner and fuzzing suite engineered to automate vulnerability discovery in AI-generated (\"vibe-coded\") applications. Comes with a native CVSS 3.1 scoring model to evaluate findings and generate reports.",
       year: "Aug. 2026",
       disciplines: ["Python"],
       githubUrl: "https://github.com/rdgonzaga/vibecheck",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type RefObject } from "react";
-// import Link from "next/link";
+import Link from "next/link";
 import {
   FaGithub,
   FaInstagram,
@@ -134,7 +134,6 @@ export function IntroPanel({
           >
             Resume
           </a>
-          {/* Temporarily hide the Writings link.
           <span className="nav-divider" aria-hidden="true">
             /
           </span>
@@ -145,7 +144,6 @@ export function IntroPanel({
           >
             Writings
           </Link>
-          */}
         </nav>
 
         <nav className="social-nav" aria-label="Social links">

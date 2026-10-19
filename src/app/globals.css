@@ -1373,6 +1373,31 @@ a:focus-visible {
   font-style: italic;
 }
 
+.writing-prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.writing-prose figure:not([data-rehype-pretty-code-figure]) {
+  margin: 0 0 1.75em;
+}
+
+.writing-prose figure > img {
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+
+.writing-prose small,
+.writing-prose figcaption {
+  color: var(--muted);
+  font-size: 0.8em;
+  line-height: 1.6;
+}
+
+.writing-prose figcaption > :last-child {
+  margin-bottom: 0;
+}
+
 .writing-prose code {
   font-family: "Courier New", monospace;
   font-size: 0.84em;

@@ -2,6 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 import { connection } from "next/server";
+import { getWritingContentBaseUrl } from "./writing-origin.mjs";
 
 export type WritingMetadata = {
   title: string;
@@ -42,12 +43,7 @@ async function fetchWriting(path: string): Promise<unknown> {
   // time, while retaining the explicit production data cache below.
   await connection();
 
-  const base = process.env.WRITINGS_CONTENT_URL ||
-    (isDevelopment ? "http://127.0.0.1:4000" : "https://writings.lancechiu.com");
-  const url = new URL(path, base.endsWith("/") ? base : base + "/");
-  if (!["http:", "https:"].includes(url.protocol)) {
-    throw new Error("WRITINGS_CONTENT_URL must be an HTTP or HTTPS URL.");
-  }
+  const url = new URL(path, getWritingContentBaseUrl());
 
   let response: Response;
   try {

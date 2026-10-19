@@ -16,8 +16,12 @@ export type PortfolioTimelineEntry = {
 
 type PortfolioContent = {
   eyebrow: string;
-  title: string;
-  introduction: string;
+  title: {
+    lead: string;
+    connector: string;
+    emphasis: string;
+  };
+  introduction: string[];
   byline: string;
   education: PortfolioTimelineEntry[];
   experience: PortfolioTimelineEntry[];
@@ -27,9 +31,15 @@ type PortfolioContent = {
 // Replace this copy and add or remove projects as the portfolio grows.
 export const portfolioContent: PortfolioContent = {
   eyebrow: "Portfolio / Profile",
-  title: "software is beautiful",
-  introduction:
-    "My interests lie in operations, networks, and security. I am rich in love and try to put a lot of that love into the things that I make.",
+  title: {
+    lead: "software",
+    connector: "is",
+    emphasis: "beautiful",
+  },
+  introduction: [
+    "My interests lie in operations, networks, and security.",
+    "I am rich in love and try to put a lot of that love into the things that I make.",
+  ],
   byline: "Lance Chiu, De La Salle University",
   education: [
     {

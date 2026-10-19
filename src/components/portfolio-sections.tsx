@@ -51,10 +51,22 @@ export function PortfolioSections({ reduceMotion }: PortfolioSectionsProps) {
       <header className="portfolio-hero">
         <div className="portfolio-hero-intro">
           <p className="portfolio-eyebrow">{portfolioContent.eyebrow}</p>
-          <h2 className="portfolio-name">{portfolioContent.title}</h2>
-          <p className="portfolio-introduction">
-            {portfolioContent.introduction}
-          </p>
+          <h2 className="portfolio-name">
+            <span className="portfolio-name-lead">
+              {portfolioContent.title.lead}
+            </span>{" "}
+            <span className="portfolio-name-ending">
+              <span className="portfolio-name-connector">
+                {portfolioContent.title.connector}
+              </span>{" "}
+              <em>{portfolioContent.title.emphasis}</em>
+            </span>
+          </h2>
+          <div className="portfolio-introduction">
+            {portfolioContent.introduction.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
           <p className="portfolio-byline">
             <span className="portfolio-byline-dot" aria-hidden="true" />
             {portfolioContent.byline}

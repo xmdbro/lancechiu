@@ -161,6 +161,18 @@ export function PortfolioSections({ reduceMotion }: PortfolioSectionsProps) {
             </ol>
           </section>
         </InView>
+
+        <section className="portfolio-section" id="skills">
+          <SectionHeading index="04" title="Technical Skills" />
+          <dl className="portfolio-skill-list">
+            {portfolioContent.skills.map((skill) => (
+              <div className="portfolio-skill-row" key={skill.category}>
+                <dt>{skill.category}</dt>
+                <dd>{skill.items.join(", ")}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       </div>
 
       <footer className="portfolio-footer">
